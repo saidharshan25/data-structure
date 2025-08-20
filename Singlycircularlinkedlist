@@ -7,16 +7,17 @@ public class SinglyCircularLinkedList {
             this.next = null;
         }
     }
-    private Node head,tail;
+    private Node head, tail;
     private int size;
     public void insertAtHead(int data) {
         Node newNode = new Node(data);
         if (head == null) {
             head = tail = newNode;
+            tail.next = head;
         } else {
             newNode.next = head;
             head = newNode;
-			tail.next=head;
+            tail.next = head;
         }
         size++;
     }
@@ -24,11 +25,11 @@ public class SinglyCircularLinkedList {
         Node newNode = new Node(data);
         if (tail == null) {
             head = tail = newNode;
-			tail.next=head;
+            tail.next = head;
         } else {
             tail.next = newNode;
             tail = newNode;
-			tail.next=head;
+            tail.next = head;
         }
         size++;
     }
@@ -57,13 +58,13 @@ public class SinglyCircularLinkedList {
             System.out.println("List is empty");
             return;
         }
-		if(head==tail){
-			head = tail=null;
-        }else{
-			head =head.next;
-			tail.next= head;
-		}
-        size--;
+        if (head == tail) {
+            head = tail = null;
+        } else {
+            head = head.next;
+            tail.next = head;
+        }
+        if (size > 0) size--;
     }
     public void deleteAtTail() {
         if (tail == null) {
@@ -77,10 +78,10 @@ public class SinglyCircularLinkedList {
             while (current.next != tail) {
                 current = current.next;
             }
-            current.next = null;
+            current.next = head;
             tail = current;
         }
-        size--;
+        if (size > 0) size--;
     }
     public void deleteAtPosition(int index) {
         if (index < 0 || index >= size) {
@@ -101,17 +102,18 @@ public class SinglyCircularLinkedList {
         }
     }
     public int search(int key) {
+        if (head == null) return -1;
         Node current = head;
         int index = 0;
-        do{
+        do {
             if (current.data == key) return index;
             current = current.next;
             index++;
-        }while(current!=head);
+        } while (current != head);
         return -1;
     }
     public void updateAtPosition(int index, int newValue) {
-        if(index < 0 || index>= size) {
+        if (index < 0 || index >= size) {
             System.out.println("Invalid position");
             return;
         }
@@ -124,18 +126,17 @@ public class SinglyCircularLinkedList {
         System.out.println("Updated position " + index + " from " + oldValue + " to " + newValue);
     }
     public void display() {
-		if(head==null){
-			System.out.println("List is Empty");
-			return;
-		}
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
         Node current = head;
         System.out.print("List: ");
-		do{
-			System.out.print(current.data+"->");
-			current = current.next;
-		}
-		while(current != head); 
-            System.out.print("(back to Head )");
+        do {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        } while (current != head);
+        System.out.println("(head)");
     }
     public int getSize() {
         return size;
@@ -145,22 +146,37 @@ public class SinglyCircularLinkedList {
         list.insertAtHead(10);
         list.insertAtTail(20);
         list.insertAtPosition(1, 15);
-        list.display(); 
+        list.display();
         list.deleteAtHead();
-        list.display(); 
+        list.display();
         list.deleteAtTail();
-        list.display(); 
+        list.display();
         list.insertAtTail(30);
         list.insertAtTail(40);
         list.insertAtPosition(1, 25);
-        list.display(); 
+        list.display();
         int pos = list.search(25);
         System.out.println("Position of 25: " + (pos >= 0 ? pos : "Not found"));
         list.updateAtPosition(1, 100);
-        list.display(); 
-        list.updateAtPosition(0, 9); 
-        list.updateAtPosition(3, 99); 
-        list.display(); 
+        list.display();
+        list.updateAtPosition(0, 9);
+        list.updateAtPosition(2, 99);
+        list.display();
         list.updateAtPosition(10, 500);
-        }
+    }
 }
+
+
+
+Output:
+List: 10 -> 15 -> 20 -> (head)
+List: 15 -> 20 -> (head)
+List: 15 -> (head)
+List: 15 -> 25 -> 30 -> 40 -> (head)
+Position of 25: 1
+Updated position 1 from 25 to 100
+List: 15 -> 100 -> 30 -> 40 -> (head)
+Updated position 0 from 15 to 9
+Updated position 2 from 30 to 99
+List: 9 -> 100 -> 99 -> 40 -> (head)
+Invalid position

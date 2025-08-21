@@ -1,25 +1,27 @@
 class PolyNode{
-	int coefficient;
+	int values;
 	int exponent;
+	PolyNode next;
 	PolyNode(){}
-	PolyNode(int c,int e){
-		coefficient=c;
+	PolyNode(int v,int e){
+		values=v;
 		exponent=e;
 	}
 }
 public class PolynomialAddition{
-	public PolyNode addPolynomial(PloyNode poly1,PolyNode poly2){
+	public PolyNode addPolynomial(PolyNode poly1,PolyNode poly2){
 		PolyNode dummy=new PolyNode(0,0);
+		PolyNode current=dummy;
 		while(poly1!=null&&poly2!=null){
 			if(poly1.exponent>poly2.exponent){
-				current.next=new PolyNode(poly1.coefficient,poly1.exponent);
+				current.next=new PolyNode(poly1.values,poly1.exponent);
 				poly1=poly1.next;
 			}
 			else if(poly1.exponent<poly2.exponent){
-				current.next=new PolyNode(poly2.coefficient,poly2.exponent);
+				current.next=new PolyNode(poly2.values,poly2.exponent);
 				poly2=poly2.next;
 			}else {
-				int sum=poly1.coefficient+poly2.coefficient;
+				int sum=poly1.values+poly2.values;
 				if(sum!=0){
 					current.next=new PolyNode(sum,poly1.exponent);
 				}
@@ -30,13 +32,13 @@ public class PolynomialAddition{
 				current=current.next;
 		}
 		while(poly1!=null){
-			current.next=new PolyNode(poly1.coefficient,poly1.exponent);
+			current.next=new PolyNode(poly1.values,poly1.exponent);
 			poly1=poly1.next;
 			current=current.next;
 		}
 		while(poly2!=null)
 		{
-			current.next=new PolyNode(poly2.coefficient,poly2.exponent);
+			current.next=new PolyNode(poly2.values,poly2.exponent);
 			poly2=poly2.next;
 			current=current.next;
 		}
@@ -44,26 +46,33 @@ public class PolynomialAddition{
 	}
 	public void printPolynomial(PolyNode head){
 		while(head!=null){
-			System.out.println("+");
+			System.out.print(head.values+"x"+head.exponent);
+			if(head.next!=null)
+				System.out.print("+");
 			head=head.next;
 		}
 		System.out.println();
 	}
 	public static void main(String[] args){
 		PolynomialAddition pa=new PolynomialAddition();
-		PolyNode poly1=new PolyNode(5,3);
-		poly1.next=new PolyNode(4,2);
-		poly1.next.next=new PolyNode(2,0);
-		PolyNode poly2=new PolyNode(5,1);
-		poly2.next=new PolyNode(5,0);
-		System.out.println("Poly 1:");
+		PolyNode poly1=new PolyNode(6,2);
+		poly1.next=new PolyNode(3,3);
+		poly1.next.next=new PolyNode(3,0);
+		PolyNode poly2=new PolyNode(4,1);
+		poly2.next=new PolyNode(4,0);
+		System.out.print("Poly 1:");
 		pa.printPolynomial(poly1);
-		System.out.println("Poly 2:");
+		System.out.print("Poly 2:");
 		pa.printPolynomial(poly2);
 		PolyNode result=pa.addPolynomial(poly1,poly2);
-		System.out.println("Result:");
+		System.out.print("Result:");
 		pa.printPolynomial(result);
 	}
 }
+
+Output:
+Poly 1:6x2+3x3+3x0
+Poly 2:4x1+4x0
+Result:6x2+3x3+4x1+7x0
 
 		

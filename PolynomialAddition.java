@@ -71,8 +71,9 @@ public class PolynomialAddition{
 }
 
 Output:
-Poly 1:6x2+3x3+3x0
-Poly 2:4x1+4x0
-Result:6x2+3x3+4x1+7x0
+Poly 1:6x^2+3x^3+3x^0
+Poly 2:4x^1+4x^0
+Result:6x^2+3x^3+4x^1+7x^0
 
 		
+

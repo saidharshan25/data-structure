@@ -49,6 +49,11 @@ public static void main(String[] args){
 	System.out.println("postfix Expression:"+postfixExp);
 	}
 }
-	
+
+
+Output:
+Infix Expression:A+(B*C-(D/E^F)*G)*H
+postfix Expression:ABC*DEF^/G*-H*+
          			
+
 	

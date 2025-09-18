@@ -29,11 +29,16 @@ class MainMini {
 		if(root==null||root.right==null){
 			System.out.println(root.data);
 			return root.data;
-		}
+			}
 		return Max(root.right);
 		}
+		boolean Search(Node root,int target){
+			if(root.data==target) return true;
+			if(target<root.data)return Search(root.left,target);
+			else return Search(root.right,target); 
+		}
 		void inorder(Node root){
-			if (root==null){
+		if (root==null){
 			return;
 		}
 		inorder(root.left);
@@ -66,6 +71,6 @@ class MainMini {
 		t1.postorder(t1.root);
 		t1.Mini(t1.root);
 		t1.Max(t1.root);
-		
+		System.out.println(t1.Search(t1.root,15)?"Found":"Not Found");
 	}
 }

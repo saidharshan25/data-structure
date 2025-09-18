@@ -1,0 +1,59 @@
+import java.util.Scanner;
+class Node{
+	int data;
+	Node left,right;
+	Node(int data){
+		this.data=data;
+		left=right=null;
+	}
+}
+class Mainll{
+	static Scanner sc=new Scanner(System.in);
+	Node root;
+	Node insert(int data){
+		Node newNode=new Node(data);
+		newNode.left=newNode.right=null;
+		return newNode;
+	}
+	Node tree(){
+	int data=sc.nextInt();
+	if(data==-1)return null;
+	Node root=insert(data);
+	System.out.println("Enter the Left of:"+data);
+	root.left=tree();
+	System.out.println("enter the Right of:"+data);
+	root.right=tree();
+	return root;
+	}
+	void inorder(Node root){
+		if (root==null){
+			return;
+		}
+		inorder(root.left);
+		System.out.print(root.data+" ");
+		inorder(root.right);
+	}
+	void preorder(Node root){
+		if (root==null){
+			return;
+		}
+		System.out.print(root.data+" ");
+		preorder(root.left);
+		preorder(root.right);
+	}
+	void postorder(Node root){
+		if (root==null){
+			return;
+		}
+		postorder(root.left);
+		postorder(root.right);
+		System.out.print(root.data+" ");
+	}
+	public static void main(String args[]){
+		Mainll t1=new Mainll();
+		t1.root=t1.tree()	;
+		t1.inorder(t1.root);
+		t1.preorder(t1.root);
+		t1.postorder(t1.root);
+	}
+}

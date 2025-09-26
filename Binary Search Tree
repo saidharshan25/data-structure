@@ -1,0 +1,84 @@
+import java.util.*;
+class TreeNode {
+    int val;
+    TreeNode left, right;
+    TreeNode(int x) {
+        val = x;
+        left = right = null;
+    }
+}
+public class Solution {
+    static Scanner sc = new Scanner(System.in);
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        helper(root, res);
+        return res;
+    }
+    public void helper(TreeNode root, List<Integer> res) {
+        if (root != null) {
+            helper(root.left, res);
+            res.add(root.val);
+            helper(root.right, res);
+        }
+    }
+    public TreeNode buildTree() {
+        System.out.print("Enter node value (-1 for null): ");
+        int data = sc.nextInt();
+        if (data == -1) {
+            return null;
+        }
+        TreeNode node = new TreeNode(data);
+        System.out.println("Enter left child of " + data);
+        node.left = buildTree();
+        System.out.println("Enter right child of " + data);
+        node.right = buildTree();
+        return node;
+    }
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        System.out.println("Build your binary tree:");
+        TreeNode root = sol.buildTree();
+        List<Integer> result = sol.inorderTraversal(root);
+        System.out.println("Inorder Traversal: " + result);
+        sc.close();
+    }
+}
+
+
+
+Output:
+Build your binary tree:
+Enter node value (-1 for null): 20
+Enter left child of 20
+Enter node value (-1 for null): 12
+Enter left child of 12
+Enter node value (-1 for null): 15
+Enter left child of 15
+Enter node value (-1 for null): -1
+Enter right child of 15
+Enter node value (-1 for null): -1
+Enter right child of 12
+Enter node value (-1 for null): -1
+Enter right child of 20
+Enter node value (-1 for null): 35
+Enter left child of 35
+Enter node value (-1 for null): 28
+Enter left child of 28
+Enter node value (-1 for null): 22
+Enter left child of 22
+Enter node value (-1 for null): -1
+Enter right child of 22
+Enter node value (-1 for null): -1
+Enter right child of 28
+Enter node value (-1 for null): 45
+Enter left child of 45
+Enter node value (-1 for null): 57
+Enter left child of 57
+Enter node value (-1 for null): -1
+Enter right child of 57
+Enter node value (-1 for null): -1
+Enter right child of 45
+Enter node value (-1 for null): -1
+Enter right child of 35
+Enter node value (-1 for null): -1
+Inorder Traversal: [15, 12, 20, 22, 28, 57, 45, 35]

@@ -1,0 +1,137 @@
+import java.util.Scanner;
+class BookNode{
+	int bookID;
+	String title;
+	BookNode left,right;
+	public BookNode(int id,String name){
+		bookID=id;
+		title=name;
+		left=right=null;
+	}
+}
+class LibraryBST{
+	BookNode root;
+	public void insert(int id,String title){
+		BookNode newNode=new BookNode(id,title);
+		if(root=null){
+			root=newNode;
+			return;
+		}
+		BookNode current=root,parent=null;
+		while(current!=null){
+			parent=current;
+			if(id<current.bookID){
+				current=current.left;
+			}else if(id>current.bookID){
+				current=current.right;
+			}else{
+				System.out.println("Book ID already exists:"+id);
+				return;
+			}
+		}
+		if(id<parent.bookID){
+			parent.left=newNode;
+		}else{
+			parent.right=newNode;
+		}
+	}
+	public void search(int id){
+		BookNode current=root;
+		while(current!=null){
+			if(id==current.bookID){
+				System.out.println("Book found:"+current.bookID+"-"+current.title);
+				return;
+			}else if(id<current.bookID){
+				current=current.left;
+			}else{
+				current=current.right;
+			}
+		}
+		System.out.println("BookID"+id+"not found in library.");
+	}
+	public void delete(int id){
+		BookNode parent=null,current=root;
+		while (current!=null&&current.bookID!=id){
+			parent=current;
+			if(id<current.bookID){
+				current=current.left;
+			} else{
+				current=current.right;
+			}
+		}
+		if(current==null){
+			System.out.println("BookID"+id+"not found");
+			return;
+		}
+		if(current.left==null&&current.right==null){
+			if(current==root)root=null;
+			else if(parent.left==current)parent.left=null;
+			else parent.right=null;
+		}
+		else if(current.left==null||current.right==null){
+			BookNode child=(current.left!=null)?current.left:current.right;
+			if(current==root)root=child;
+			elseif(parent.left==current)parent.left=child;
+			else parent.right=child;
+		}
+		else{
+			BookNode successor parent=current;
+			BookNode successor=current.right;
+			while(successor.left!=null){
+				successorparent=successor;
+				successor=successor.left;
+			}
+			current.bookID=successor.bookID;
+			current.title=successor.title;
+			if(successorparent.left==successor){
+				successorparent.left=successor.right;
+			}else{
+				successorparent.right=successor.right;
+			}
+		}
+		System.out.println("Book ID"+id+"delete successfully."):
+	}
+	public void inorder(BookNode root){
+		if(root!=null){
+			inorder(root.left);
+			System.out.println(root.bookID+"");
+			System.out.println("["+root.bookID+"-");
+			inorder(root.right);
+		}
+	}
+	public void preorder(BookNode root){
+		if(root!=null){
+			System.out.println(root.bookID+"");
+			System.out.println("["+root.bookID+"-"+root.title+"]");
+			preorder(root.left);
+			preorder(root.right);
+		}
+	}
+	public void postorder(BookNode root){
+		if(root!=null){
+			postorder(root.left);
+			postorder(root.right);
+			System.out.println(root.bookID+"");
+		System.out.println("["+root.bookID+"-"+root.title+"]");
+		}
+	}
+}
+public class LibraryBST{
+	public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		LibraryBST bst=new LibraryBST();
+		int chioce;
+		do{
+			System.out.println("\n Library Menu:");
+			System.out.println("1.Insert Book:");
+			System.out.println("2.Search Book:");
+			System.out.println("3.Delete Book:");
+			System.out.println("4.Display Inorder(sorted)");
+			System.out.println("5.Display preorder");
+			System.out.println("6.Display postorder");
+			System.out.println("Enter your chioce:");
+			chioce=sc.nextln():
+			sc.nextline();
+			switch(chioce){
+				Case 1:
+				
